@@ -1,7 +1,8 @@
 title:            Niko, doko?
 tagline:          A boring programming blog
 description:      A boring programming blog
-canonical: https://nicolascouvrat.github.io
+#Comment out url when working locally to resolve base urls correctly
+url: https://nicolascouvrat.github.io
 
 # Owner/author information
 owner:
@@ -27,6 +28,9 @@ opengraph:
 links:
   - title: About
     url: /about
+  - title: Donate
+    url: http://gtat.me/balzac/donate
+    external: true
   - title: Github
     url: https://github.com/nicolascouvrat/
     external: true
