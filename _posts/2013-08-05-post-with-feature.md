@@ -43,18 +43,16 @@ Looking around the tutorial and fiddling a little bit with junior high school tr
 fairly easy making use of react-native's `PanResponder` and `Animated`. This did not cause much of a problem, so I will not go
 over it in details. I managed to create a simple component:
 
-
-```
+```jsx
 <Joystick
-  top={Window.height/2}
-  left={Window.width/2}
-  mainDimension={100}
-  onMove={this.onMove.bind(this)}
-  onRelease={this.onRelease.bind(this)}
-  shape='circle'
+    top={Window.height/2}
+    left={Window.width/2}
+    mainDimension={100}
+    onMove={this.onMove.bind(this)}
+    onRelease={this.onRelease.bind(this)}
+    shape='circle'
 />
 ```
-
 
 Rendering like this:
 
@@ -95,22 +93,21 @@ i.e. treat the two touches separately :/ After a bit of research though, I found
 `gestureState` as argument to the `PanHandler`'s callbacks did contain an array of the different touches on the screen, namely in
 `evt.nativeEvent.touches`.
 
-```
+```jsx
 componentWillMount: function() {
     this._panResponder = PanResponder.create({
-      // Assuming the right onStartShouldSet... calls
-
-      onPanResponderMove: (evt, gestureState) => {
-        // evt.nativeEvent.touches contains a list of all touches
-      },
+        // Assuming the right onStartShouldSet... calls
+        onPanResponderMove: (evt, gestureState) => {
+            // evt.nativeEvent.touches contains a list of all touches
+        },
     });
-  },
+},
 
-  render: function() {
+render: function() {
     return (
-      &lt;View {...this._panResponder.panHandlers} />
+        <View {...this._panResponder.panHandlers} />
     );
-  },
+},
 ```
 
 At this point, you might think something like: "let's just throw that high level API away, go one layer deeper and simply intercept
@@ -122,38 +119,38 @@ This is a little bit hidden in the docs ([that page]("https://facebook.github.io
 talks about it without much details and without any code), but you can actually access touch events directly using the `props` of 
 just about any `View`. It goes like this:
 
-```
+```jsx
 export default class App extends React.Component {
-/* assuming imports are done */
-  render() {
-    return (
-      &lt;View
-        onStartShouldSetResponder={() => true}
-        onResponderStart={(evt) => console.log("I have started!")}
-        // onResponderMove={}
-        // etc.
-       >
-         &lt;Text>Click me!&lt;/Text>
-       &lt;/View>
-    )
-  }
+    /* assuming imports are done */
+    render() {
+        return (
+            <View
+                onStartShouldSetResponder={() => true}
+                onResponderStart={(evt) => console.log("I have started!")}
+                // onResponderMove={}
+                // etc.
+            >
+                <Text>Click me!</Text>
+            </View>
+        )
+    }
 }
 ```
 
 This works as intended: touching the text will indeed log a message in the console. I thus reworked my `Joystick` component to 
 integrate event response this way. I ended up with something like:
 
-```
+```jsx
 export default class App extends React.Component {
-/* assuming imports are done */
-  render() {
-    return (
-      &lt;View>
-          &lt;Joystick name="leftRight" onMove={this.onLeftRightMove}/>
-          &lt;Joystick name="upDown" onMove={this.onUpDownMove} />
-      &lt;/View>
-    )
-  }
+    /* assuming imports are done */
+    render() {
+        return (
+            <View>
+                <Joystick name="leftRight" onMove={this.onLeftRightMove}/>
+                <Joystick name="upDown" onMove={this.onUpDownMove} />
+            </View>
+        )
+    }
 }
 ```
 

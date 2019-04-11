@@ -1,7 +1,7 @@
 title:            Niko, doko?
 tagline:          A boring programming blog
 description:      A boring programming blog
-canonical:        https://nicolascouvrat.github.io
+# canonical:        https://nicolascouvrat.github.io
 
 # Owner/author information
 owner:
@@ -37,22 +37,24 @@ links:
 # http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 timezone:    America/New_York
 future:      true
-highlighter: pygments
 markdown:    kramdown
+highlighter: rouge
 
 kramdown:
+  input: GFM
+  syntax_highlighter: rouge
   auto_ids: true
   footnote_nr: 1
   entity_output: as_char
   toc_levels: 1..6
-  use_coderay: false
 
-  coderay:
-    coderay_line_numbers:
-    coderay_line_numbers_start: 1
-    coderay_tab_width: 4
-    coderay_bold_every: 10
-    coderay_css: class
+  syntax_highlighter_opts:
+    css_class: 'highlight'
+    span:
+      line_numbers: false
+    block:
+      line_numbers: true
+      start_line: 1
 
 sass:
     style: :compressed

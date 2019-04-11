@@ -1,4 +1,5 @@
 /************ Basic *************/
+// TODO: try lato font
 
 body {
   font-family: $serif;
@@ -74,12 +75,17 @@ code {
     font-weight: bold;
 }
 
+// in rouge, this is the outmost class
+.highlighter-rouge {
+    margin-bottom: $lh;
+}
+
 .highlight {
     background: $black;
     padding: 12px;
     border-radius: 4px;
-    margin-bottom: $lh;
-    overflow-x: scroll;
+    // TODO: why does this takes extra space in the bottom?
+    // overflow-x: scroll;
 
     code {
         color: $white;
@@ -101,8 +107,6 @@ code {
         }
     }
 }
-
-
 
 hr {
     display: block;
@@ -167,7 +171,7 @@ input {
 
 .post {
     @include column(8);
-    max-width: 680px;
+    max-width: 780px;
     display: block;
     margin: 0 auto;
     float: none;
